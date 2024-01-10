@@ -1,0 +1,32 @@
+type Volume = 
+ record {
+   Amount;
+   Amount;
+ };
+type TokenId = text;
+type Rate = float64;
+type PairsResponse = vec PairData;
+type PairsRequest = vec PairId;
+type PairId = 
+ record {
+   TokenId;
+   TokenId;
+ };
+type PairData = 
+ record {
+   depth: Depth;
+   pair_id: PairId;
+   rate: Rate;
+   volume24: Volume;
+   volume_total: Volume;
+ };
+type Depth = 
+ record {
+   asks: vec Amount;
+   bids: vec Amount;
+ };
+type Amount = float64;
+service : {
+  icrc_38_list_pairs: () -> (vec PairId) query;
+  icrc_38_pair_data: (PairsRequest) -> (PairsResponse) query;
+}
