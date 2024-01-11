@@ -36,7 +36,9 @@ actor {
     
     type PairsResponse = [PairData];
 
-    public query func icrc_38_list_pairs() : async [PairId] {
+    type PairAddress = (Principal, PairId);
+
+    public query func icrc_38_list_pairs() : async [PairAddress] {
         []
     };
 
