@@ -22,11 +22,13 @@ actor {
     type Depth = {
         bids: [Amount]; // 0.1%, 0.5%, 1%, 2%, 5%, 10%, 15%, 20%, 25%, 30%, 50%, 75%, 100%
         asks: [Amount]; // 0.1%, 0.5%, 1%, 2%, 5%, 10%, 15%, 20%, 25%, 30%, 50%, 100%, 200%, 300%, 500%, 1000%, +Infinity
+        highest_bid: Amount;
+        lowest_ask: Amount;
     };
 
     type PairData = {
         pair_id: PairId;
-        rate: Rate;
+        last_trade_rate: Rate;
         volume24: Volume; // rolling 24h volume in each token
         volume_total: Volume;
         depth : Depth;
