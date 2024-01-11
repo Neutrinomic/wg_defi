@@ -10,7 +10,7 @@ actor {
 
     type PairsRequest = [PairId];
 
-    type Volume = (Amount, Amount); 
+    type Volume = (Amount, Amount); // in both tokens
 
     // Define the structure for representing market depth.
     // The market depth is described in terms of bids and asks arrays,
