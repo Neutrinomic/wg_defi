@@ -11,7 +11,8 @@ actor {
     type PairsRequest = {pairs: [PairId], limit:Nat, level:Nat}; 
 
     type Volume = (Amount, Amount); // in both tokens
-
+    type Decimals = Nat8;
+    type VolumeTotal = ((Nat, Decimals), (Nat, Decimals));
     type Depth = {
         bids: [(Rate, Amount)]; 
         asks: [(Rate, Amount)]; 
