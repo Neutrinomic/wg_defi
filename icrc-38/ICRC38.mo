@@ -8,20 +8,13 @@ actor {
 
     type PairId = (TokenId, TokenId); // base token, quote token
 
-    type PairsRequest = [PairId];
+    type PairsRequest = {pairs: [PairId], limit:Nat, level:Nat}; 
 
     type Volume = (Amount, Amount); // in both tokens
 
-    // Define the structure for representing market depth.
-    // The market depth is described in terms of bids and asks arrays,
-    // each containing a series of 'Amount' values. These values correspond to
-    // cumulative order volumes within specified percentage ranges from the current market price.
-    // The ranges are set to provide detailed granularity close to the market price,
-    // becoming progressively less granular as the price range widens.
-    // This approach helps in understanding immediate trading pressures and potential support/resistance levels.
     type Depth = {
-        bids: [Amount]; // 0.1%, 0.5%, 1%, 2%, 5%, 10%, 15%, 20%, 25%, 30%, 50%, 75%, 100%
-        asks: [Amount]; // 0.1%, 0.5%, 1%, 2%, 5%, 10%, 15%, 20%, 25%, 30%, 50%, 100%, 200%, 300%, 500%, 1000%, +Infinity
+        bids: [(Rate, Amount)]; 
+        asks: [(Rate, Amount)]; 
         highest_bid: Amount;
         lowest_ask: Amount;
     };
