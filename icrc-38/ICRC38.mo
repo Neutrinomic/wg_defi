@@ -24,7 +24,7 @@ actor {
         pair_id: PairId;
         last_trade_rate: Rate;
         volume24: Volume; // rolling 24h volume in each token
-        volume_total: Volume;
+        volume_total: VolumeTotal;
         depth : Depth;
     };
     
