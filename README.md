@@ -10,7 +10,7 @@ Info on working groups: https://github.com/dfinity/ICRC
 |----------|-------------:|------|
 | ICRC-45 |  [Live DEX Data](https://github.com/dfinity/ICRC/issues/45) | ![Status Badge](https://img.shields.io/badge/STATUS-DRAFT-ffcc00.svg) |
 | ICRC-47 |  [DEX History](https://github.com/dfinity/ICRC/issues/47) | ![Status Badge](https://img.shields.io/badge/STATUS-IDEA-888888.svg) |
-| ICRC-50 | [DeFi Vector](https://github.com/dfinity/ICRC/issues/55) | ![Status Badge](https://img.shields.io/badge/STATUS-IDEA-888888.svg) |
+| ICRC-55 | [DeFi Vector](https://github.com/dfinity/ICRC/issues/55) | ![Status Badge](https://img.shields.io/badge/STATUS-IDEA-888888.svg) |
 
 ## Process
 | Status                   | Description                                                                                                              |
