@@ -8,7 +8,7 @@ Info on working groups: https://github.com/dfinity/ICRC
 
 | Standard   |      Topic      |  Status |
 |----------|-------------:|------|
-| ICRC-38 |  [Live DEX Data](https://github.com/dfinity/ICRC/issues/45) | ![Status Badge](https://img.shields.io/badge/STATUS-DRAFT-ffcc00.svg) |
+| ICRC-47 |  [Live DEX Data](https://github.com/dfinity/ICRC/issues/45) | ![Status Badge](https://img.shields.io/badge/STATUS-DRAFT-ffcc00.svg) |
 | ICRC-45 |  [DEX History](https://github.com/dfinity/ICRC/issues/47) | ![Status Badge](https://img.shields.io/badge/STATUS-IDEA-888888.svg) |
 |  |  DEX Swap | ![Status Badge](https://img.shields.io/badge/STATUS-IDEA-888888.svg) |
 
