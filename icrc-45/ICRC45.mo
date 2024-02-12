@@ -2,7 +2,7 @@ actor {
 
     type Amount = Nat;
 
-    type PlatformId = Nat; // IC = 1, Bitfinity=2, Ethereum = 3, Ordinals=4, ICPI=5, Binance CEX = 6, etc.
+    type PlatformId = Nat64; // IC = 1, Bitfinity=2, Ethereum = 3, Ordinals=4, ICPI=5, Binance CEX = 6, etc.
     // Can be anything, a principal, a symbol like BTC, ethereum address, text, etc.
     // Max 50 bytes
 
