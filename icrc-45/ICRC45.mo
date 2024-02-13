@@ -23,13 +23,13 @@ actor {
         volume24: Float;
         volume_total: Amount; // Floats can't be used here
     };
-
+ 
     type PairData = {
         id: PairId;
         base: TokenData;
         quote: TokenData;
-        volume24_USD : ?Float; // (optional) 
-        volume_total_USD : ?Amount; // (optional) Always 4 decimals
+        // volume24_USD : ?Float; // (optional) 
+        // volume_total_USD : ?Amount; // (optional) Always 4 decimals
         last: Rate; // Last trade rate
         bids: [(Rate, Amount)]; 
         asks: [(Rate, Amount)]; 
