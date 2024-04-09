@@ -34,7 +34,7 @@ actor {
 
     // A public query function to retrieve exchange transactions over a given range.
     // This function can be used to obtain a historical record of exchanges.
-    public query func icrc_40_get_exchanges : (record { start : nat; length : nat }) : async (record { exchanges : vec Exchange }) {
+    public query func icrc_40_get_exchanges : ({ start : nat; length : nat }) : async (record { exchanges : vec Exchange }) {
         // Implementation would go here to return exchanges starting from 'start' index, 
         // limited to 'length' number of exchanges.
     };
