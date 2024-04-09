@@ -15,12 +15,11 @@ actor {
 
    // Structure to represent a transfer of tokens between parties within an exchange.
     type Transfer = {
-        from_owner : Address; 
+        from_owner : ?Address; // Optional when from_owner == from
         from : Address; // The sender's address, could be a user or a contract.
-        to_owner : Address; // Index of the receiving party in the exchange's party list.
+        to_owner : ?Address; // Optional when to_owner == to
         to : Address; // The receiver's address, could be a user or a contract.
-        from_ledger : Address;
-        to_ledger : Address;
+        ledger : Address;
         amount : Amount;
     };
 

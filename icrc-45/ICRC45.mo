@@ -22,7 +22,7 @@ actor {
         volume24: Amount;
         volume_total: Amount; // Floats can't be used here
     };
-
+ 
     type PairData = {
         id: PairId;
         base: TokenData;
