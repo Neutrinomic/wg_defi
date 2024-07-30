@@ -18,7 +18,6 @@ actor {
     type Rate = Float; // IEEE 754 floating point numbers 
 
     type TokenData = {
-        decimals: Decimals;
         volume24: Amount;
         volume_total: Amount; // Floats can't be used here
     };
