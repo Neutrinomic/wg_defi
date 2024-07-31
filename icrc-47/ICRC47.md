@@ -20,10 +20,10 @@ Each transfer CAN contain `from_owner` and `to_owner` fields
 `from_owner` is optional when `from` == `from_owner`
 `to_owner` is optional when `to` == `to_owner`
 
-Note: Usually IC contracts hold user funds in subaccounts controlled by them and these have different addresses than the user ownining these tokens. 
+Note: Usually IC contracts hold user funds in subaccounts controlled by them and these have different addresses than the users ownining these tokens. 
 
 **Design**
-This specification allows logging of fungible and non-fungible swaps between two or more participants on different platforms.
+This specification allows logging of fungible and non-fungible exchanges between two or more participants on the same or different platforms.
 
 ```js
 variant { Map = vec {
