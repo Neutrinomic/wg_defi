@@ -1,28 +1,34 @@
 #### ICRC-47 is ICRC-3 compliant Block
 
+
 **Exchange Block Schema**
-the `btype` field MUST be "47exchange" 
-the `ts` field MUST contain a timestamp
-`phash` is REQUIRED
-MUST contain `xfers` field - Array of transfers (2 or more)
-Each transfer MUST contain `amount`
-Each transfer MUST contain `from`, `to`, `ledger` and amount fields
-Each transfer CAN contain `from_owner` and `to_owner` fields
-`from_owner`, `to_owner`, `ledger` MUST be valid Address (sub schema)
-`to` and `from` MUST be valid PlatformPath (sub schema)
+
+- the `btype` field MUST be "47exchange"
+- the `ts` field MUST contain a timestamp
+- `phash` is REQUIRED
+- MUST contain `xfers` field - Array of transfers (2 or more)
+- Each transfer MUST contain `amount`
+- Each transfer MUST contain `from`, `to`, `ledger` and amount fields
+- Each transfer CAN contain `from_owner` and `to_owner` fields
+- `from_owner`, `to_owner`, `ledger` MUST be valid Address (sub schema)
+- `to` and `from` MUST be valid PlatformPath (sub schema)
 
 
 **Token addresses and Owner addresses**
-`from_owner` is the identity of the sender
-`from` is the address tokens get trasferred from
-`to_owner` is the identity of the receiver
-`to` is the address tokens get trasferred to
-`from_owner` is optional when `from` == `from_owner`
-`to_owner` is optional when `to` == `to_owner`
+
+- `from_owner` is the identity of the sender
+- `from` is the address tokens get trasferred from
+- `to_owner` is the identity of the receiver
+- `to` is the address tokens get trasferred to
+- `from_owner` is optional when `from` == `from_owner`
+- `to_owner` is optional when `to` == `to_owner`
+
 
 Note: Usually IC contracts hold user funds in subaccounts controlled by them and these have different addresses than the users ownining these tokens. 
 
+
 **Design**
+
 This specification allows logging of fungible and non-fungible exchanges between two or more participants on the same or different platforms.
 
 ```js
@@ -46,8 +52,10 @@ variant { Map = vec {
 ```
 
 **Address**
-First element MUST be PlatformPath
-Second element CAN be PlatformId if it is different from 1 (IC fungible tokens)
+
+- First element MUST be PlatformPath
+- Second element CAN be PlatformId if it is different from 1 (IC fungible tokens)
+
 ```js
 variant { Array = vec {
         PlatformPath; // First element PlatformPath
@@ -56,9 +64,9 @@ variant { Array = vec {
 ```
 
 **PlatformPath**
-Array of Platform specific Blobs (1 or more)
-If ICRC Accounts then first element is `owner` and second element is `subaccount` (optional)
-if used inside `ledger` for NFTs then first element is canister id and second element is NFT id
+- Array of Platform specific Blobs (1 or more)
+- If ICRC Accounts then first element is `owner` and second element is `subaccount` (optional)
+- If used inside `ledger` for NFTs then first element is canister id and second element is NFT id
 
 ```js
 variant { Array = vec {
@@ -68,6 +76,8 @@ variant { Array = vec {
 ```
 
 **PlatformId** 
+
 Check ../ICRC45/platforms.md
-IC fungible - 1
-IC NFT - 2
+
+- IC fungible - 1
+- IC NFT - 2
