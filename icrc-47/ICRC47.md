@@ -1,13 +1,15 @@
+#### ICRC-47 is ICRC-3 compliant Block
 
 **Exchange Block Schema**
 the `btype` field MUST be "47exchange" 
 the `ts` field MUST contain a timestamp
+`phash` is REQUIRED
 MUST contain `xfers` field - Array of transfers (2 or more)
 Each transfer MUST contain `amount`
 Each transfer MUST contain `from`, `to`, `ledger` and amount fields
 Each transfer CAN contain `from_owner` and `to_owner` fields
-`from_owner`, `to_owner`, `ledger` MUST be valid Address
-`to` and `from` MUST be valid PlatformPath
+`from_owner`, `to_owner`, `ledger` MUST be valid Address (sub schema)
+`to` and `from` MUST be valid PlatformPath (sub schema)
 
 
 **Token addresses and Owner addresses**
