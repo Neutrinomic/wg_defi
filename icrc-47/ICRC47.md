@@ -2,14 +2,13 @@
 **Exchange Block Schema**
 the `btype` field MUST be "47exchange" 
 the `ts` field MUST contain a timestamp
-`tx` MUST contain `xfer` field - Array of transfers (2 or more)
-Each `xfer` MUST contain `from`, `to`, `ledger` and amount fields
-Each `xfer` CAN contain `from_owner` and `to_owner` fields
-`from_owner`, `to_owner`, `ledger` are of type `Address`
-`from` and to are `PlatformPaths` with `PlatformId` taken from the address of the `ledger`
-each `Address` MUST contain `PlatformPath` as first element 
-each `Address` CAN contain `PlatformId` as second element 
-if `PlatformId` is the InternetComputer - 1, it doesn't have to be included
+MUST contain `xfers` field - Array of transfers (2 or more)
+Each transfer MUST contain `amount`
+Each transfer MUST contain `from`, `to`, `ledger` and amount fields
+Each transfer CAN contain `from_owner` and `to_owner` fields
+`from_owner`, `to_owner`, `ledger` MUST be valid Address
+`to` and `from` MUST be valid PlatformPath
+
 
 **Token addresses and Owner addresses**
 `from_owner` is the identity of the sender
@@ -21,32 +20,52 @@ if `PlatformId` is the InternetComputer - 1, it doesn't have to be included
 
 Note: Usually IC contracts hold user funds in subaccounts controlled by them and these have different addresses than the user ownining these tokens. 
 
-```
+**Design**
+This specification allows logging of fungible and non-fungible swaps between two or more participants on different platforms.
+
+```js
 variant { Map = vec {
     record { "btype"; "variant" { Text = "47exchange" }};
     record { "ts"; variant { Nat = 1_675_241_149_669_614_928 : nat } };
-    record { "tx"; variant { Map = vec {
-        record { "xfer"; variant { Array = vec {
-                variant { Map = vec {
-                    record { "ledger"; variant { Map = vec {
-                        variant { Blob = blob "\16c\e1\91v\eb\e5)\84:\b2\80\13\cc\09\02\01\a8\03[X\a5\a0\d3\1f\e4\c3{\02" } ;
-                        variant { Nat = 1 : nat } ;
-                    }}};
-                    record { "amount"; variant { Nat = 1_000_000_000_000_000_000 : nat }};
-                    record { "from"; variant { Map = Blob = blob "\16c\e1\91v\eb\e5)\84:\b2\80\13\cc\09\02\01\a8\03[X\a5\a0\d3\1f\e4\c3{\02" }};
-                    record { "to"; variant { Map = Blob = blob "\16c\e1\91v\eb\e5)\84:\b2\80\13\cc\09\02\01\a8\03[X\a5\a0\d3\1f\e4\c3{\02" }};
-                    record { "from_owner"; variant { Array = vec {
-                        variant { Blob = blob "\16c\e1\91v\eb\e5)\84:\b2\80\13\cc\09\02\01\a8\03[X\a5\a0\d3\1f\e4\c3{\02" } ;
-                        variant { Nat = 1 : nat } ;
-                    }}};
-                    record { "to_owner"; variant { Map = vec {
-                        variant { Blob = blob "\16c\e1\91v\eb\e5)\84:\b2\80\13\cc\09\02\01\a8\03[X\a5\a0\d3\1f\e4\c3{\02" } ;
-                        variant { Nat = 2 : nat } ;
-                    }}};
-
-                    
-                }};
-        }}};
+    record { "xfers"; variant { Array = vec {
+            variant { Map = vec {
+                record { "ledger"; Address};
+                record { "amount"; variant { Nat = 1_000_000_000_000_000_000 : nat }};
+                record { "from"; PlatformPath};
+                record { "to"; PlatformPath};
+                record { "from_owner"; Address };
+                record { "to_owner"; Address };
+            }};
+            //...
     }}};
 }};
+
+
 ```
+
+**Address**
+First element MUST be PlatformPath
+Second element CAN be PlatformId if it is different from 1 (IC fungible tokens)
+```js
+variant { Array = vec {
+        PlatformPath; // First element PlatformPath
+        variant { Nat = 1 : nat }; // Second element PlatformId
+    }}
+```
+
+**PlatformPath**
+Array of Platform specific Blobs (1 or more)
+If ICRC Accounts then first element is `owner` and second element is `subaccount` (optional)
+if used inside `ledger` for NFTs then first element is canister id and second element is NFT id
+
+```js
+variant { Array = vec {
+        variant { Blob = blob "\00\00\00\00\020\00\07\01\01" };
+        variant { Blob = blob "&\99\c0H\7f\a4\a5Q\af\c7\f4;\d9\e9\ca\e5 \e3\94\84\b5c\b6\97/\00\e6\a0\e9\d3p\1a" };
+    }};
+```
+
+**PlatformId** 
+Check ../ICRC45/platforms.md
+IC fungible - 1
+IC NFT - 2

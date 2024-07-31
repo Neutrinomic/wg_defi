@@ -3,8 +3,9 @@
 ## List of Blockchain Platforms and IDs
 
 - **Internet Computer**: 1
-- **Bitcoin**: 2
-- **Ethereum**: 3
+- **Internet Computer NFT**: 2
+- **Bitcoin**: 3
+- **Ethereum**: 4
 
 ## Contributing
 
