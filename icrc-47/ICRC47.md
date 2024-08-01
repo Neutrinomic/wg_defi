@@ -118,8 +118,8 @@ Map = vec {
                 record { "to"; variant { Array = vec { 
                     variant { Blob = blob "\00\00\00\00\01\70\48\e3\01\01" }; 
                     variant { Blob = blob "\01\00\00\00\05\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" };} };}; 
-                record { "from_owner"; variant { Array = vec { variant { Blob = blob "\56\64\f8\fa\86\71\92\f3\5d\09\79\c3\7f\3d\4b\f4\f8\c7\7b\79\cf\ca\bc\ab\d6\bd\4d\16\02" };} };}; 
-                record { "to_owner"; variant { Array = vec { variant { Blob = blob "\56\64\f8\fa\86\71\92\f3\5d\09\79\c3\7f\3d\4b\f4\f8\c7\7b\79\cf\ca\bc\ab\d6\bd\4d\16\02" };} };};}
+                record { "from_owner"; variant { Array = vec { variant { Array = vec { variant { Blob = blob "\56\64\f8\fa\86\71\92\f3\5d\09\79\c3\7f\3d\4b\f4\f8\c7\7b\79\cf\ca\bc\ab\d6\bd\4d\16\02" };}}} };}; 
+                record { "to_owner"; variant { Array = vec { variant { Array = vec { variant { Blob = blob "\56\64\f8\fa\86\71\92\f3\5d\09\79\c3\7f\3d\4b\f4\f8\c7\7b\79\cf\ca\bc\ab\d6\bd\4d\16\02" };}}} };};}
             };
     }}}}
 ```
