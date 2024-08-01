@@ -31,9 +31,11 @@ Note: Usually IC contracts hold user funds in subaccounts controlled by them and
 
 This specification allows logging of fungible and non-fungible exchanges between two or more participants on the same or different platforms.
 
+**Schema** 
+
 ```js
 variant { Map = vec {
-    record { "btype"; "variant" { Text = "47exchange" }};
+    record { "btype"; variant { Text = "47exchange" }};
     record { "ts"; variant { Nat = 1_675_241_149_669_614_928 : nat } };
     record { "xfers"; variant { Array = vec {
             variant { Map = vec {
@@ -81,3 +83,41 @@ Check ../ICRC45/platforms.md
 
 - IC fungible - 1
 - IC NFT - 2
+
+
+** Example ** 
+
+```js
+Doesn't have PlatformID's since everything is pointing to the IC
+
+Map = vec {
+    record { "phash"; variant {Blob = blob "\e9\c6\36\57\f0\f6\da\de\e3\a1\40\05\1e\f6\f0\7e\87\73\43\1b\5e\1f\2a\be\4b\2a\b8\6f\fb\66\4e\c4" }; };
+    record { "ts"; variant { Nat = 1_722_515_422_309_834_566 : nat } };
+    record { "btype"; variant { Text = "47exchange" } };
+    record { "xfers"; variant { Array = vec {
+            variant { Map = vec { 
+                record { "ledger"; variant { Array = vec { variant { Array = vec { variant { Blob = blob "\00\00\00\00\00\00\00\02\01\01" };} };} };};
+                record { "amount"; variant { Nat = 34_022_675 : nat };};
+                record { "from"; variant { Array = vec { 
+                    variant { Blob = blob "\00\00\00\00\01\70\48\e3\01\01" };
+                    variant { Blob = blob "\01\00\00\00\04\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" };} };};
+                record { "to"; variant { Array = vec { 
+                    variant { Blob = blob "\00\00\00\00\01\70\48\e3\01\01" };
+                    variant { Blob = blob "\01\00\00\00\04\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" };} };};
+                record { "from_owner"; variant { Array = vec { variant { Blob = blob "\56\64\f8\fa\86\71\92\f3\5d\09\79\c3\7f\3d\4b\f4\f8\c7\7b\79\cf\ca\bc\ab\d6\bd\4d\16\02" };} };};
+                record { "to_owner"; variant { Array = vec { variant { Blob = blob "\56\64\f8\fa\86\71\92\f3\5d\09\79\c3\7f\3d\4b\f4\f8\c7\7b\79\cf\ca\bc\ab\d6\bd\4d\16\02" };} };};}
+            };
+            variant { Map = vec { 
+                record { "ledger"; variant { Array = vec { variant { Array = vec { variant { Blob = blob "\00\00\00\00\02\00\00\88\01\01" };} };} };}; 
+                record { "amount"; variant { Nat = 66_399_224 : nat };};
+                record { "from"; variant { Array = vec { 
+                    variant { Blob = blob "\00\00\00\00\01\70\48\e3\01\01" }; 
+                    variant { Blob = blob "\01\00\00\00\05\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" };} };}; 
+                record { "to"; variant { Array = vec { 
+                    variant { Blob = blob "\00\00\00\00\01\70\48\e3\01\01" }; 
+                    variant { Blob = blob "\01\00\00\00\05\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00" };} };}; 
+                record { "from_owner"; variant { Array = vec { variant { Blob = blob "\56\64\f8\fa\86\71\92\f3\5d\09\79\c3\7f\3d\4b\f4\f8\c7\7b\79\cf\ca\bc\ab\d6\bd\4d\16\02" };} };}; 
+                record { "to_owner"; variant { Array = vec { variant { Blob = blob "\56\64\f8\fa\86\71\92\f3\5d\09\79\c3\7f\3d\4b\f4\f8\c7\7b\79\cf\ca\bc\ab\d6\bd\4d\16\02" };} };};}
+            };
+    }}}}
+```
