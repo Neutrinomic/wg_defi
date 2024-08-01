@@ -85,10 +85,12 @@ Check ../ICRC45/platforms.md
 - IC NFT - 2
 
 
-** Example ** 
+**Example** 
+
+Doesn't have PlatformID's since everything is pointing to the IC
+
 
 ```js
-Doesn't have PlatformID's since everything is pointing to the IC
 
 Map = vec {
     record { "phash"; variant {Blob = blob "\e9\c6\36\57\f0\f6\da\de\e3\a1\40\05\1e\f6\f0\7e\87\73\43\1b\5e\1f\2a\be\4b\2a\b8\6f\fb\66\4e\c4" }; };
