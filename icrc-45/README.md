@@ -19,7 +19,7 @@ The current landscape of DeFi applications on the Internet Computer is character
 - `PairId` (Struct): Identifies a token pair consisting of a base and a quote token. Contains two `TokenId` structs.
 - `Rate` (Float): Represents exchange rates using floating-point numbers.
 - `TokenData` (Struct): Stores detailed information about a token. Contains `Decimals` (Nat8), `volume24` (Nat), `volume_total` (Nat).
-- `PairData` (Struct): Structures for storing detailed information about token pairs. Contains `PairId` (Struct), `TokenData` for base and quote, optional `volume24_USD` (Nat), optional `volume_total_USD` (Nat), `last` (Rate), `bids` and `asks` (List of tuples with `Rate` and `Amount`), and `timestamp` (Nat64).
+- `PairData` (Struct): Structures for storing detailed information about token pairs. Contains `PairId` (Struct), `TokenData` for base and quote, optional `volume24_USD` (Nat), optional `volume_total_USD` (Nat), `last` (Rate), `bids` and `asks` (List of tuples with `Rate` and `Amount`), and `timestamp` (Nat64 in nanoseconds).
 - `PairInfo` (Struct): Describes a token pair and its data source. Contains `DataSource` (Principal) and `PairId` (Struct).
 - `Level` (Nat8): Used to specify the aggregation level of data.
 
@@ -155,3 +155,65 @@ Additionally, the `platform.md` document outlines the numeric identifiers assign
 - **Ethereum**: 3
 
 This setup facilitates the inclusion of tokens from different blockchains within the Internet Computer's DeFi ecosystem.
+
+
+### Example
+
+Note: Bigints are converted to strings
+
+```js
+
+[
+  {
+    "id": {
+      "base": {
+        "path": [0, 0, 0, 0, 0, 0, 0, 2, 1, 1 ],
+        "platform": "1"
+      },
+      "quote": {
+        "path": [0, 0, 0, 0, 2, 0, 0, 136, 1, 1],
+        "platform": "1"
+      }
+    },
+    "volume_total_USD": "3918279453",
+    "asks": [
+      [
+        1.9598386967305617,
+        "29849999"
+      ],
+      [
+        2.029114064593758,
+        "57499575"
+      ],
+      [
+        2.206508558796901,
+        "57499575"
+      ]
+    ],
+    "bids": [
+      [
+        1.5499390744885575,
+        "112092988"
+      ],
+      [
+        0.9658805915985059,
+        "112092988"
+      ]
+    ],
+    "base": {
+      "volume24": "34151305618",
+      "volume_total": "44180684408"
+    },
+    "last": 0.5124375981022963,
+    "quote": {
+      "volume24": "66972742724",
+      "volume_total": "87103922590"
+    },
+    "last_timestamp": "1722516962237527731",
+    "volume24_USD": "3014944945",
+    "updated_timestamp": "1722516962237527731"
+  }
+]
+
+
+```
