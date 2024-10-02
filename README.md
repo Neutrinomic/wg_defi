@@ -16,9 +16,13 @@ Info on working groups: https://github.com/dfinity/ICRC
 ICRC55 Motoko Framework & Draft https://github.com/Neutrinomic/devefi/blob/main/src/ICRC55.mo
 
 https://forum.dfinity.org/t/defi-working-group/27350/5
+
 https://forum.dfinity.org/t/icrc-45-live-dex-data/26417
+
 https://forum.dfinity.org/t/icrc-47-dex-history/26477
+
 https://forum.dfinity.org/t/icrc-55-defi-vectors/27209
+
 https://forum.dfinity.org/t/devefi-ledger-icrc-ledger-client-library/27274
 
 ## Process
