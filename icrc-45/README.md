@@ -35,7 +35,7 @@ type PairInfo = record { id : PairId; data : DataSource };
 type ListPairsResponse = vec PairInfo;
 type DepthRequest = record { level : Level; limit : nat32 };
 type PairRequest = record { pairs : vec PairId; depth : opt DepthRequest };
-type TokenData = record { volume24 : Amount; volume_total : Amount };
+type TokenData = record { decimals : u8; volume24 : Amount; volume_total : Amount };
 type PairData = record {
   id : PairId;
   volume_total_USD : opt Amount;
