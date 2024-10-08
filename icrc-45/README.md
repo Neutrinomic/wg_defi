@@ -22,6 +22,39 @@ The current landscape of DeFi applications on the Internet Computer is character
 - `PairData` (Struct): Structures for storing detailed information about token pairs. Contains `PairId` (Struct), `TokenData` for base and quote, optional `volume24_USD` (Nat), optional `volume_total_USD` (Nat), `last` (Rate), `bids` and `asks` (List of tuples with `Rate` and `Amount`), and `timestamp` (Nat64 in nanoseconds).
 - `PairInfo` (Struct): Describes a token pair and its data source. Contains `DataSource` (Principal) and `PairId` (Struct).
 - `Level` (Nat8): Used to specify the aggregation level of data.
+```candid
+type Amount = nat;
+type Rate = f64;
+type Level = u8;
+type DataSource = Principal;
+type PlatformPath = blob;
+type PlatformId = u64;
+type TokenId = record { path : PlatformPath; platform : PlatformId };
+type PairId = record { base : TokenId; quote : TokenId };
+type PairInfo = record { id : PairId; data : DataSource };
+type ListPairsResponse = vec PairInfo;
+type DepthRequest = record { level : Level; limit : nat32 };
+type PairRequest = record { pairs : vec PairId; depth : opt DepthRequest };
+type TokenData = record { decimals : u8; volume24 : Amount; volume_total : Amount };
+type PairData = record {
+  id : PairId;
+  volume_total_USD : opt Amount;
+  asks : vec record { Rate; Amount };
+  base : TokenData;
+  bids : vec record { Rate; Amount };
+  last : Rate;
+  quote : TokenData;
+  last_timestamp : nat64;
+  volume24_USD : opt Amount;
+  updated_timestamp : nat64;
+};
+type PairResponseErr = variant {
+  NotFound : PairId;
+  InvalidDepthLevel : Level;
+  InvalidDepthLimit : nat32;
+};
+type PairResponse = variant { Ok : vec PairData; Err : PairResponseErr };
+```
 
 ### Public Actor Methods
 
@@ -29,6 +62,9 @@ The current landscape of DeFi applications on the Internet Computer is character
 
 ```motoko
 public query func icrc_45_list_pairs() : async ListPairsResponse
+```
+```candid
+icrc_45_list_pairs : () -> (ListPairsResponse) query;
 ```
 
 - **Purpose**: Retrieves a list of all token pairs available for querying. This function serves as an entry point for clients to discover which token pairs are supported by the DEX.
@@ -38,6 +74,9 @@ public query func icrc_45_list_pairs() : async ListPairsResponse
 
 ```motoko
 public query func icrc_45_get_pairs(req: PairRequest) : async PairResponse
+```
+```candid
+icrc_45_get_pairs : (PairRequest) -> (PairResponse) query;
 ```
 
 - **Purpose**: Fetches live data for a specified set of token pairs, including details like trading volumes, last traded rate, and order book depth.
