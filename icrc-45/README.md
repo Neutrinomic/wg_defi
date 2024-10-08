@@ -100,7 +100,7 @@ type PairData = {
     volume24_USD : ?Amount; // (optional) Always 6 decimals
     volume_total_USD : ?Amount; // (optional) Always 6 decimals
     last: Rate; // Last trade rate
-    last_timestamp: Nat64;
+    last_timestamp: Nat64; // If zero - no trades happened yet
     bids: [(Rate, Amount)]; // Bids are listed in descending order by rate
     asks: [(Rate, Amount)]; // Asks are listed in ascending order by rate
     updated_timestamp: Nat64; // Last updated timestamp in nanoseconds
