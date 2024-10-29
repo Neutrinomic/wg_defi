@@ -124,7 +124,6 @@ module {
         ledger : Principal;
         min_create_balance : Nat; // Min balance required to create a node
         freezing_threshold_days: Nat; // Min days left to freeze the node if it has insufficient balance. Frozen nodes can't do transactions, but can be modified or deleted
-        exempt_daily_cost_balance: ?Nat; // Balance threshold that exempts from cost per day deduction
         operation_cost: Nat; // Cost incurred per operation (Ex: modify, withdraw). Has to be at least 4 * ledger fee. Paid to the pylon only since the costs are incurred by the pylon
         split: BillingFeeSplit;
     };
