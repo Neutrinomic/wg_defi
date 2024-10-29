@@ -10,7 +10,7 @@ Info on working groups: https://github.com/dfinity/ICRC
 |----------|-------------:|------|
 | ICRC-45 |  [Live DEX Data](https://github.com/dfinity/ICRC/issues/45) | ![Status Badge](https://img.shields.io/badge/STATUS-STANDARD-00cc00.svg) |
 | ICRC-47 |  [DEX History](https://github.com/dfinity/ICRC/issues/47) | ![Status Badge](https://img.shields.io/badge/STATUS-DRAFT-884444.svg) |
-| ICRC-55 | [DeFi Vector](https://github.com/dfinity/ICRC/issues/55) | ![Status Badge](https://img.shields.io/badge/STATUS-DRAFT-888888.svg) |
+| ICRC-55 | [DeFi Vector](https://github.com/dfinity/ICRC/issues/55) | ![Status Badge](https://img.shields.io/badge/STATUS-DRAFT-884444.svg) |
 
 ## Publications
 ICRC55 Motoko Framework & Draft https://github.com/Neutrinomic/devefi/blob/main/src/ICRC55.mo
