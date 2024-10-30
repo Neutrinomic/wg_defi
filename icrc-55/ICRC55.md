@@ -21,9 +21,9 @@ Clients using ICRC55 can assemble lean, streamlined modules to build a graph of 
 
 ## Core Elements
 
-### Source Address
-Controlled by a canister on the Internet Computer, we call __Pylon__ in the context of this protocol.
-### Destination Address
+### Source Endpoint
+Endpoints have platform ID, ledger address and a wallet address. Sources are controlled by a canister on the Internet Computer, we call __Pylon__ in the context of this protocol.
+### Destination Endpoint
 Not confined by control from the _Pylon_ and can reside anywhere, including pointing to another component on the same _Pylon_.
 
 ### Vector
