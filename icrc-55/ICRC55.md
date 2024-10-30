@@ -492,6 +492,18 @@ public type GetControllerNodes<A> = [GetNodeResponse<A>];
 
 It returns the same response type as when querying a single node, but allows pagination in case there are more nodes than one response can return.
 
+### Get Virtual Balances
+
+```
+   icrc55_virtual_balances : shared query (VirtualBalancesRequest) -> async VirtualBalancesResponse;
+```
+
+```
+   public type VirtualBalancesRequest = Account;
+   public type VirtualBalancesResponse = [(SupportedLedger, Nat)];
+```    
+
+Returns virtual account balances for every non-empty supported ledger inside the _Pylon_
 
 ### Pylon meta
 
