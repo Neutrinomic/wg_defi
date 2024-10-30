@@ -258,7 +258,7 @@ Takes `LocalNodeId` and deletes the node permanently. Its history remains inside
 During deletion all transferable tokens are returned to the `refund` virtual account.
 
 
-#### Transfer
+### Transfer
 
 To transfer tokens inside of _Pylons_ or in between virtual accounts we use the command `#transfer`.
 
