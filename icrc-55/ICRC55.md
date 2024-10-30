@@ -555,7 +555,7 @@ A client will usually start by requesting the _Pylon_ metadata and then use it w
 ### ICRC3 Block Schema
 
 - the `btype` field MUST be `"55vec"`
-- the `c` field MUST contain a Blob - Candid encoded BatchCommandRequest where `signature` is removed.
+- the `c` field MUST contain a Blob - Candid binary representation of the `BatchCommandRequest`, excluding the `signature` field.
 - `phash` is REQUIRED
 
 
