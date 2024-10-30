@@ -404,9 +404,9 @@ Frozen nodes are inactive and require their billing accounts to be topped up.
 `cost_per_day` is shared between `split`.
 
 
-### Querying Nodes
+## Querying Nodes
 
-#### Get node
+### Get Nodes By ID or Endpoint
 ```js
 icrc55_get_nodes : shared query [GetNode] -> async [?GetNodeResponse<Any>];
 ```
@@ -452,7 +452,7 @@ public type BillingInternal = {
 If `current_balance` goes to zero, `expires` will be set to a timestamp using `pylon.metadata.temporary_nodes.expire_sec`. Once the node expires, it gets deleted and tokens sent to the `refund` virtual account.
 `active` is set by the client in order to stop/start nodes internal operations. `cost_per_day` is still taking fees even if inactive.
 
-#### Endpoint Responses
+### Endpoint Responses
 
 ```js
 public type SourceEndpointResp = {
@@ -471,7 +471,7 @@ public type DestinationEndpointResp = {
 `name` is assigned by _Vector Modules_
 
 
-#### Get controller nodes 
+### Get Controller Nodes 
 
 To quickly retrieve all nodes of a controller, we can use the API endpoint
 
@@ -494,37 +494,37 @@ It returns the same response type as when querying a single node, but allows pag
 ### Get Virtual Balances
 
 ```
-   icrc55_virtual_balances : shared query (VirtualBalancesRequest) -> async VirtualBalancesResponse;
+icrc55_virtual_balances : shared query (VirtualBalancesRequest) -> async VirtualBalancesResponse;
 ```
 
 ```
-   public type VirtualBalancesRequest = Account;
-   public type VirtualBalancesResponse = [(SupportedLedger, Nat)];
+public type VirtualBalancesRequest = Account;
+public type VirtualBalancesResponse = [(SupportedLedger, Nat)];
 ```    
 
 Returns virtual account balances for every non-empty supported ledger inside the _Pylon_
 
-### Pylon meta
+### Pylon Metadata
 
 ```js
 icrc55_get_pylon_meta : shared query () -> async PylonMetaResp;
 ```
 
 ```js
-    public type PylonMetaResp = {
-        name: Text;
-        governed_by : Text;
-        modules: [ModuleMeta];
-        temporary_nodes: {
-            allowed : Bool;
-            expire_sec: Nat64;
-        };
-        supported_ledgers : [SupportedLedger];
-        billing: BillingPylon;
-        platform_account : Account;
-        pylon_account: Account;
-        request_max_expire_sec: Nat64;
-    };
+public type PylonMetaResp = {
+   name: Text;
+   governed_by : Text;
+   modules: [ModuleMeta];
+   temporary_nodes: {
+      allowed : Bool;
+      expire_sec: Nat64;
+   };
+   supported_ledgers : [SupportedLedger];
+   billing: BillingPylon;
+   platform_account : Account;
+   pylon_account: Account;
+   request_max_expire_sec: Nat64;
+};
 ```    
 
 `supported_ledgers` contains a list of ledgers nodes can use.
@@ -533,20 +533,20 @@ icrc55_get_pylon_meta : shared query () -> async PylonMetaResp;
 
 
 ```js
-    public type ModuleMeta = {
-        id : Text;
-        name : Text;
-        description : Text;
-        author : Text;
-        supported_ledgers : [SupportedLedger]; // If it's empty, this means it supports all pylon ledgers
-        billing : Billing;
-        version: Version;
-        create_allowed: Bool;
-        ledger_slots : [Text];
-        sources: EndpointsDescription;
-        destinations: EndpointsDescription;
-        author_account: Account;
-    };
+public type ModuleMeta = {
+   id : Text;
+   name : Text;
+   description : Text;
+   author : Text;
+   supported_ledgers : [SupportedLedger]; // If it's empty, this means it supports all pylon ledgers
+   billing : Billing;
+   version: Version;
+   create_allowed: Bool;
+   ledger_slots : [Text];
+   sources: EndpointsDescription;
+   destinations: EndpointsDescription;
+   author_account: Account;
+};
 ```
 If `supported_ledgers` is empty, the module supports all _Pylon_ ledgers.
 A client will usually start by requesting the _Pylon_ metadata and then use it when making `icrc55_command` calls.
