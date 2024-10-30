@@ -265,7 +265,6 @@ To transfer tokens inside of _Pylons_ or in between virtual accounts we use the 
 ```js
 public type TransferRequest = {
    ledger: SupportedLedger; // IC or remote blockchain ledger
-   account : Account;
    from: {
       #node: {
             node_id : LocalNodeId;

@@ -224,7 +224,6 @@ module {
 
     public type TransferRequest = {
         ledger: SupportedLedger;
-        account : Account;
         from: {
             #node: {
                 node_id : LocalNodeId;
@@ -280,7 +279,7 @@ module {
             #duplicate: Nat;
             #expired;
             #invalid_signature;
-            #access_denied;
+            #caller_not_controller;
             #other: Text;
         };
         #ok : {
