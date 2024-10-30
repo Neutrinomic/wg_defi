@@ -230,8 +230,8 @@ If `CommonModifyRequest` or `A` is `null` these parts will remain unmodified.
 
 ```js
 public type CommonModifyRequest = {
-   sources: ?[Endpoint];
-   destinations : ?[EndpointOpt];
+   sources: ?[?InputAddress];
+   destinations : ?[?InputAddress];
    extractors : ?[LocalNodeId];
    refund: ?Account;
    controllers : ?[Controller];
@@ -246,11 +246,11 @@ If a field in this record is null, it will remain unmodified.
 
 `controllers` if empty will black hole the _Vector Node_.
 
-`active` - allows clients to start and stop a node.
+`active` - allows controllers to start and stop a node.
 
 `refund` - contains a virtual account that receives every token inside the _Vector Node_ on expiration or other errors.
 
-The custom modify type defined by the node module acts same as the custom create type.
+The custom modify type defined by the node module acts same as the custom create type - _Vector Module_ IDs are options in a variant.
 
 ### Delete Node
 
@@ -419,7 +419,7 @@ public type GetNode = {
 };
 ```
 
-The request can query by node ID or source endpoint. Endpoint requests can be used to find nodes of destination accounts and this way discover the graph of interconnected nodes starting from any node.
+The request can query by node ID or source endpoint. Endpoint requests can be used to find nodes of destination accounts and this way discover the graph of interconnected nodes starting from root nodes.
 
 ```js
 public type GetNodeResponse<A> = {
