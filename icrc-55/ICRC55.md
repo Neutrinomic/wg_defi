@@ -38,7 +38,7 @@ _Vector Modules_ can be developed by third parties and deployed by _Pylons_.
 
 ### Pylon
 Canisters without a central coordinating DAO, aside from the Network Nervous System (NNS) that governs the IC Protocol. Each DAO independently decides which _Vector Modules_ to install and which ledgers they will utilize.
-_Pylons_ communicate securely, ensuring no adversarial behavior can occur between _Pylons_, as their interactions are mediated through cryptocurrency ledger transactions. A transaction either completes successfully or does not, ensuring reliability and security. This requires ledgers to be trusted.
+_Pylons_ communicate securely, ensuring no adversarial behavior can occur between _Pylons_, as their interactions are mediated through cryptocurrency ledger transactions. A transaction either completes successfully or does not, ensuring reliability and security.
  
 
 ### Virtualization
