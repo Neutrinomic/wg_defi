@@ -15,6 +15,7 @@ module {
         billing: BillingPylon;
         platform_account : Account;
         pylon_account: Account;
+        request_max_expire_sec: Nat64;
     };
     public type LedgerIdx = Nat;
     public type LedgerLabel = Text;
@@ -114,7 +115,7 @@ module {
 
     //-- 
 
-    public type Address = {
+    public type InputAddress = {
         #ic : Account;
         #other : Blob;
         #temp : {id: Nat32; source_idx: EndpointIdx}
@@ -173,8 +174,8 @@ module {
 
     public type GetControllerNodesRequest = {
         id : Controller;
-        start : Nat;
-        length : Nat;
+        start : LocalNodeId;
+        length : Nat32;
     };
     
     public type GetControllerNodes<A> = [GetNodeResponse<A>];
@@ -186,9 +187,9 @@ module {
 
 
     public type CommonCreateRequest = {
-        sources:[?Address];
+        sources:[?InputAddress];
         extractors: [LocalNodeId];
-        destinations: [?Address];
+        destinations: [?InputAddress];
         ledgers: [SupportedLedger];
         refund: Account;
         controllers : [Controller];
@@ -197,9 +198,9 @@ module {
         temp_id: Nat32;
     };
 
-    public type CommonModRequest = {
-        sources: ?[?Address];
-        destinations : ?[?Address];
+    public type CommonModifyRequest = {
+        sources: ?[?InputAddress];
+        destinations : ?[?InputAddress];
         extractors : ?[LocalNodeId];
         refund: ?Account;
         controllers : ?[Controller];
@@ -212,7 +213,7 @@ module {
     };
 
     public type CreateNodeRequest<A> = (CommonCreateRequest, A);
-    public type ModifyNodeRequest<A> = (LocalNodeId, ?CommonModRequest, ?A);
+    public type ModifyNodeRequest<A> = (LocalNodeId, ?CommonModifyRequest, ?A);
     public type ModifyNodeResponse<A> = {
         #ok : GetNodeResponse<A>;
         #err : Text;
@@ -221,54 +222,49 @@ module {
     public type EndpointIdx = Nat8;
 
 
-    public type SourceTransferRequest = {
-        id : LocalNodeId;
-        source_idx : EndpointIdx;
-        to: Address;
-        amount: Nat;
-    };
-    public type SourceTransferResponse = {
-        #ok : ();
-        #err : Text;
-    };
-
-    public type VirtualTransferRequest = {
+    public type TransferRequest = {
+        ledger: SupportedLedger;
         account : Account;
-        to: Endpoint;
+        from: {
+            #node: {
+                node_id : LocalNodeId;
+                endpoint_idx : EndpointIdx;
+            };
+            #account : Account;
+        };
+        to: {
+            #external_account: {
+                #ic : Account;
+                #other: Blob;
+            };
+            #account: Account;
+            #node_billing: LocalNodeId;
+            #node: {
+                node_id : LocalNodeId;
+                endpoint_idx : EndpointIdx;
+            };
+        };
         amount: Nat;
     };
 
-    public type VirtualTransferResponse = {
+    public type TransferResponse = {
         #ok : Nat64;
         #err : Text;
     };
 
-    public type TopUpNodeRequest = {
-        id : LocalNodeId;
-        amount: Nat;
-    };
-
-    public type TopUpNodeResponse = {
-        #ok : ();
-        #err : Text;
-    };
 
     public type Command<C,M> = {
         #create_node : CreateNodeRequest<C>;
         #delete_node : LocalNodeId;
         #modify_node : ModifyNodeRequest<M>;
-        #source_transfer: SourceTransferRequest;
-        #virtual_transfer: VirtualTransferRequest;
-        #top_up_node : TopUpNodeRequest;
+        #transfer: TransferRequest;
     };
 
     public type CommandResponse<A> = {
         #create_node : CreateNodeResponse<A>;
         #delete_node : DeleteNodeResp;
         #modify_node : ModifyNodeResponse<A>;
-        #source_transfer: SourceTransferResponse;
-        #virtual_transfer: VirtualTransferResponse;
-        #top_up_node : TopUpNodeResponse;
+        #transfer: TransferResponse;
     };
 
     public type BatchCommandRequest<C,M> = {
@@ -295,11 +291,16 @@ module {
 
     public type VirtualBalancesRequest = Account;
     public type VirtualBalancesResponse = [(SupportedLedger, Nat)];
+    public type ValidationResult = {
+        #Ok : Text;
+        #Err : Text;
+    };
 
     public type Self = actor {
         icrc55_get_controller_nodes : shared query GetControllerNodesRequest -> async GetControllerNodes<Any>;
         
         icrc55_command : shared BatchCommandRequest<Any, Any> -> async BatchCommandResponse<Any>;
+        icrc55_command_validate : shared query BatchCommandRequest<Any, Any> -> async ValidationResult;
 
         icrc55_get_nodes : shared query [GetNode] -> async [?GetNodeResponse<Any>];
         icrc55_get_pylon_meta : shared query () -> async PylonMetaResp;
