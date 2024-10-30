@@ -22,7 +22,7 @@ Clients using ICRC55 can assemble lean, streamlined modules to build a graph of 
 ## Core Elements
 
 ### Source Endpoint
-Endpoints have platform ID, ledger address and a wallet address. Sources are controlled by a canister on the Internet Computer, we call __Pylon__ in the context of this protocol.
+Endpoints have platform ID, ledger address and account address. Sources are controlled by a canister on the Internet Computer, we call __Pylon__ in the context of this protocol.
 ### Destination Endpoint
 Not confined by control from the _Pylon_ and can reside anywhere, including pointing to another component on the same _Pylon_.
 
@@ -216,7 +216,7 @@ For responses:
 Releasing a brand-new node module with a different ID is an upgrade option as well, but should be done only as last resort.
 
 
-### Modify Node
+## Modify Node
 
 
 Modification similar to creation requires custom interface for each node module.
@@ -259,10 +259,46 @@ Takes `LocalNodeId` and deletes the node permanently. Its history remains inside
 During deletion all transferable tokens are returned to the `refund` virtual account.
 
 
-## Endpoints
+#### Transfer
+
+To transfer tokens inside of _Pylons_ or in between virtual accounts we use the command `#transfer`.
+
+```js
+public type TransferRequest = {
+   ledger: SupportedLedger; // IC or remote blockchain ledger
+   account : Account;
+   from: {
+      #node: {
+            node_id : LocalNodeId;
+            endpoint_idx : EndpointIdx;
+      };
+      #account : Account;
+   };
+   to: {
+      #external_account: {
+            #ic : Account;
+            #other: Blob;
+      };
+      #account: Account;
+      #node_billing: LocalNodeId;
+      #node: {
+            node_id : LocalNodeId;
+            endpoint_idx : EndpointIdx;
+      };
+   };
+   amount: Nat;
+};
+```    
+
+Sending to `#external_account` withdraws tokens to the main ledger.
+`#account` both in to and from is used when making virtual transfers.
+To `#node_billing` is the billing address of the node.
+Similarly, we can transfer from and to `#node` source addresses.
+
+## Token Endpoints
 
 
-Sources & Destinations of _Vector Nodes_ contain endpoints.
+`sources` & `destinations` of _Vector Nodes_ contain endpoints.
 Endpoints contain platform ID, ledger address and account address.
 
 
@@ -457,39 +493,52 @@ public type GetControllerNodes<A> = [GetNodeResponse<A>];
 It returns the same response type as when querying a single node, but allows pagination in case there are more nodes than one response can return.
 
 
-#### Transfer
-
-To transfer tokens inside of _Pylons_ or in between virtual accounts we use the command `#transfer`.
+### Pylon meta
 
 ```js
-public type TransferRequest = {
-   ledger: SupportedLedger; // IC or remote blockchain ledger
-   account : Account;
-   from: {
-      #node: {
-            node_id : LocalNodeId;
-            endpoint_idx : EndpointIdx;
-      };
-      #account : Account;
-   };
-   to: {
-      #external_account: {
-            #ic : Account;
-            #other: Blob;
-      };
-      #account: Account;
-      #node_billing: LocalNodeId;
-      #node: {
-            node_id : LocalNodeId;
-            endpoint_idx : EndpointIdx;
-      };
-   };
-   amount: Nat;
-};
+icrc55_get_pylon_meta : shared query () -> async PylonMetaResp;
+```
+
+```js
+    public type PylonMetaResp = {
+        name: Text;
+        governed_by : Text;
+        modules: [ModuleMeta];
+        temporary_nodes: {
+            allowed : Bool;
+            expire_sec: Nat64;
+        };
+        supported_ledgers : [SupportedLedger];
+        billing: BillingPylon;
+        platform_account : Account;
+        pylon_account: Account;
+        request_max_expire_sec: Nat64;
+    };
 ```    
 
-Sending to `#external_account` withdraws tokens to the main ledger.
-`#account` both in to and from is used when making virtual transfers.
-To `#node_billing` is the billing address of the node.
-Similarly, we can transfer from and to `#node` source addresses.
+`supported_ledgers` contains a list of ledgers nodes can use.
+`nodes` contains metadata for all _Vector Modules_ inside the _Pylon_
+`temporary_nodes.allowed` specifies if the _Pylon_ accepts _Vector Nodes_ without initial fee
 
+
+```js
+    public type ModuleMeta = {
+        id : Text;
+        name : Text;
+        description : Text;
+        author : Text;
+        supported_ledgers : [SupportedLedger]; // If it's empty, this means it supports all pylon ledgers
+        billing : Billing;
+        version: Version;
+        create_allowed: Bool;
+        ledger_slots : [Text];
+        sources: EndpointsDescription;
+        destinations: EndpointsDescription;
+        author_account: Account;
+    };
+```
+If `supported_ledgers` is empty, the module supports all _Pylon_ ledgers.
+A client will usually start by requesting the _Pylon_ metadata and then use it when making `icrc55_command` calls.
+`id` has to be the same as the variant option inside the module's custom types.
+
+Full interface description is available in ICRC55.mo

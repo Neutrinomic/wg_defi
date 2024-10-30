@@ -6,7 +6,7 @@ module {
     public type PylonMetaResp = {
         name: Text;
         governed_by : Text;
-        nodes: [NodeMeta];
+        modules: [ModuleMeta];
         temporary_nodes: {
             allowed : Bool;
             expire_sec: Nat64;
@@ -21,7 +21,7 @@ module {
     public type LedgerLabel = Text;
     public type EndpointsDescription = [(LedgerIdx, LedgerLabel)];
     public type Version = {#release:[Nat16]; #beta:[Nat16]; #alpha:[Nat16]}; // Always 3 items. Ex: [0,1,23]
-    public type NodeMeta = {
+    public type ModuleMeta = {
         id : Text;
         name : Text;
         description : Text;
