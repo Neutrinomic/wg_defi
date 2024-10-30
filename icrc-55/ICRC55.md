@@ -4,8 +4,7 @@
 ## Introduction
 
 
-ICRC55 is a protocol designed for building advanced DeFi systems out of interoperable components on the Internet Computer. It is a product of the IC DeFi Working Group, with the Neutrinite Foundation funded by Neutrinite DAO being the primary contributor.
-
+ICRC55 is a protocol designed for building advanced DeFi systems out of interoperable components on the Internet Computer. It is authored by Neutrinomic Foundation, funded by Neutrinite DAO and discussed inside the IC DeFi Working Group.
 
 ## Core Technology
 
@@ -529,8 +528,8 @@ icrc55_get_pylon_meta : shared query () -> async PylonMetaResp;
 ```    
 
 `supported_ledgers` contains a list of ledgers nodes can use.
-`nodes` contains metadata for all _Vector Modules_ inside the _Pylon_
-`temporary_nodes.allowed` specifies if the _Pylon_ accepts _Vector Nodes_ without initial fee
+`modules` contains metadata for all _Vector Modules_ inside the _Pylon_
+`temporary_nodes.allowed` specifies if the _Pylon_ accepts _Vector Nodes_ without initial fee. `expire_sec` specifies how long temporary nodes will be kept before deletion.
 
 
 ```js
