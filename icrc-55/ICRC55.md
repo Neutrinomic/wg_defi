@@ -552,4 +552,11 @@ If `supported_ledgers` is empty, the module supports all _Pylon_ ledgers.
 A client will usually start by requesting the _Pylon_ metadata and then use it when making `icrc55_command` calls.
 `id` has to be the same as the variant option inside the module's custom types.
 
+### ICRC3 Block Schema
+
+- the `btype` field MUST be `"55vec"`
+- the `c` field MUST contain a Blob - Candid encoded BatchCommandRequest where `signature` is removed.
+- `phash` is REQUIRED
+
+
 Full interface description is available in ICRC55.mo
