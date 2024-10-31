@@ -174,8 +174,8 @@ A node can be created without setting any of its destinations.
 
 **Sources** and **destination accounts** can be ICRC Accounts or remote chain accounts. These can be left as empty arrays when creating the node. Sources will be automatically assigned based on the _Vector_ ID and the _Pylon_ canister principal. Sources can only be:
 - IC Accounts with the owner being the canister principal, and the `subaccount` is generated based on the node ID.
-- Other blockchain-native tokens securely managed by the Pylon canister through Chain-Key Cryptography.
-- Virtual token ledgers of pooled assets.
+- Other blockchain-native token accounts securely managed by the Pylon canister through Chain-Key cryptography.
+- Virtual token ledger accounts of pooled assets.
 
 
 One node can use another node's source address, which is why they can be specified at all. The other node must have the node ID in **extractors**, otherwise it will not be allowed to extract.
