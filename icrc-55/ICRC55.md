@@ -8,9 +8,9 @@ ICRC55 is a protocol designed for building advanced DeFi systems out of interope
 
 ## Core Technology
 
-ICRC55 is built around the __DeFi Vector__ concept, a "push" model that transfers tokens from a source to a destination address based on preset conditions. Unlike traditional "pull" models, where recipients initiate transfers, this approach enables direct token movements without constant requests from the destination. 
+ICRC55 is built around the __DeFi Vector__ concept, a "push" model that transfers tokens from a source to a destination address based on preset conditions. Unlike traditional "pull" models, where recipients initiate transfers in synchronous virtual machines, this approach enables direct token movements without constantly polling promises from the source in asynchronous environments. 
 
-In asynchronous, multi-canister execution environments, a "pull" model cannot achieve atomicity, whereas a "push" model can. With a "push" model, tokens remain under the custody of a single canister, granting it exclusive authority to manage those tokens and maintain an internal ledger, thereby offloading work from the main ledger. In contrast, a "pull" model involves shared custody of tokens, preventing any single canister from independently maintaining such a ledger.
+In asynchronous, multi-canister execution environments, a "pull" model cannot achieve atomicity without unfeasible costs and complexity, whereas a "push" model can. With a "push" model, tokens remain under the custody of a single canister, granting it exclusive authority to manage those tokens and maintain an internal ledger, thereby offloading work from the main ledger. In contrast, a "pull" model involves shared custody of tokens, preventing any single entity in async environments from independently maintaining such a ledger.
 
 Additionally, ICRC55 separates the conditions guiding these transfers from the token transfer itself. This allows conditions to be defined once, before sending tokens, and reused for subsequent transfers.
 
@@ -172,7 +172,10 @@ A node can be created without setting any of its destinations.
 `temporary` If set to `true` and the _Pylon_ allows temporary _Vectors_, they will be created without initial charges, but will expire, unless paid later. Once they expire they will be deleted and their tokens send to the `refund` address. Temporary nodes shouldn't be allowed by the _Vector Module_ developers if tokens can't be refunded.
 
 
-**Sources** and **destination accounts** can be ICRC Accounts or remote chain accounts. These can be left as empty arrays when creating the node. Sources will be automatically assigned based on the _Vector_ ID and the _Pylon_ canister principal. Sources can only be Accounts with the owner being the canister principal, and the `subaccount` is generated based on the node ID.
+**Sources** and **destination accounts** can be ICRC Accounts or remote chain accounts. These can be left as empty arrays when creating the node. Sources will be automatically assigned based on the _Vector_ ID and the _Pylon_ canister principal. Sources can only be:
+- IC Accounts with the owner being the canister principal, and the `subaccount` is generated based on the node ID.
+- Other blockchain-native tokens securely managed by the Pylon canister through Chain-Key Cryptography.
+- Virtual token ledgers of pooled assets.
 
 
 One node can use another node's source address, which is why they can be specified at all. The other node must have the node ID in **extractors**, otherwise it will not be allowed to extract.
