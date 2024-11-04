@@ -548,6 +548,8 @@ public type ModuleMeta = {
    sources: EndpointsDescription;
    destinations: EndpointsDescription;
    author_account: Account;
+   temporary_allowed: Bool;
+
 };
 ```
 If `supported_ledgers` is empty, the module supports all _Pylon_ ledgers.

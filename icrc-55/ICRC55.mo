@@ -34,6 +34,7 @@ module {
         sources: EndpointsDescription;
         destinations: EndpointsDescription;
         author_account: Account;
+        temporary_allowed: Bool;
     };
 
     public type SupportedLedger = {
@@ -305,5 +306,7 @@ module {
         icrc55_get_pylon_meta : shared query () -> async PylonMetaResp;
 
         icrc55_virtual_balances : shared query (VirtualBalancesRequest) -> async VirtualBalancesResponse;
+
+        icrc55_get_defaults : shared query (Text) -> async Any;
     };
 };
